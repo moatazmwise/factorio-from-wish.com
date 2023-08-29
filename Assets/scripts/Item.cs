@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Progress;
 
-public class Item : MonoBehaviour
+public class Item
 {
     public int id = 0;
     public int stackSize = 50;
@@ -10,7 +11,7 @@ public class Item : MonoBehaviour
     public bool wearable = false;
     public bool interactable = false;
 
-    public bool AddToStack(Item item)
+    public int AddToStack(Item item)
     {
         if (item is not null)
         {
@@ -18,22 +19,28 @@ public class Item : MonoBehaviour
             {
                 if (this.stack + item.stack <= this.stackSize)
                 {
-                    this.stack += item.stack;
-                    return true;
+                    int transfer = AddToStack(item.stack);
+                    item.stack -= transfer;
+                    return transfer;
                 }
             }
         }
-        return false;
+        return 0;
     }
 
-    public bool RemoveFromStack(int delta)
+    public int AddToStack(int amount)
     {
-        if (this.stack - delta >= 0)
-        {
-            this.stack -= delta;
-            return true;
-        }
-        return false;
+        int availableStack = this.stackSize - this.stack;
+        int transfer = Mathf.Min(availableStack, amount);
+        this.stack += transfer;
+        return transfer;
+    }
+
+    public int RemoveFromStack(int amount)
+    {
+        int transfer = Mathf.Min(amount, this.stack);
+        this.stack -= transfer;
+        return transfer;
     }
 
     public Item Split()
