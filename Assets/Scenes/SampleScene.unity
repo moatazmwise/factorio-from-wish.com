@@ -229,6 +229,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grid: {fileID: 1979432385}
+  placedBlockId: 1
   speed: 0.5
   camSize: 1
   camSizeMin: 1
@@ -332,7 +333,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   size: 100
-  obj: {fileID: 2548508901857039990, guid: bc17adaf8e33a0945ab193b4b363f22c, type: 3}
+  block: {fileID: 8889545508304938527, guid: bc17adaf8e33a0945ab193b4b363f22c, type: 3}
   dirt: {fileID: 7240603544048684940, guid: de9b2ebacc4463c409aded5f6473dcb2, type: 3}
 --- !u!4 &1979432386
 Transform:

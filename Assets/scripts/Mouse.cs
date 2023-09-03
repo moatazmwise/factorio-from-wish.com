@@ -5,12 +5,14 @@ using UnityEngine;
 public class Mouse : MonoBehaviour
 {
     public Grid grid;
+    public int placedBlockId = 1;
     public float speed = 1;
     public float camSize = 1;
     public float camSizeMin = 1;
     public float mouseWheelSensitivity = 10;
     public float camSizeMax = 15;
     private Vector3 prevMousePos;
+    
 
     private void Start()
     {
@@ -22,7 +24,7 @@ public class Mouse : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             {
-                grid.Place(mousePos.x, mousePos.y);
+                grid.Place(mousePos.x, mousePos.y, placedBlockId);
             }
         }
         if (Input.GetMouseButtonDown(1))

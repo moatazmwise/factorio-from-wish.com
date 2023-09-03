@@ -8,36 +8,37 @@ public class Grid : MonoBehaviour
 {
     public int size = 1000;
     public Ground[,] ground;
-    public Placable[,] placables;
-    public GameObject obj;
+    public GameObject[,] placedBlocks;
+    public GameObject block;
     public GameObject dirt;
     void Start()
     {
         ground = new Ground[size,size];
-        placables = new Placable[size,size];
+        placedBlocks = new GameObject[size,size];
 
         for (int i = 0; i < size; i++)
         {
             for(int j = 0; j < size; j++)
             {
                 PlaceGround(i, j);
-                placables[i, j] = null; 
+                placedBlocks[i, j] = null; 
             }
         }
     }
     
-    public void Place(float x, float y)
+    public void Place(float x, float y, int id)
     {
         if (Mathf.RoundToInt(x) >= size || Mathf.RoundToInt(x) < 0 || Mathf.RoundToInt(y) >= size || Mathf.RoundToInt(y) < 0)
         {
             Debug.Log("Out of bounds : " + "x = " + Mathf.RoundToInt(x) +",  y = " + Mathf.RoundToInt(y) + ",  size = " + size);
             return;
         }
-        if (placables[Mathf.RoundToInt(x), Mathf.RoundToInt(y)] is null)
+        if (placedBlocks[Mathf.RoundToInt(x), Mathf.RoundToInt(y)] is null)
         {
             Debug.Log("placing " + (int)x + " , " + (int)y);
-            placables[Mathf.RoundToInt(x), Mathf.RoundToInt(y)] = new Wall();
-            placables[Mathf.RoundToInt(x), Mathf.RoundToInt(y)].placedObj = Instantiate(obj, new Vector3(Mathf.RoundToInt(x), Mathf.RoundToInt(y), -1), new Quaternion());
+            block.GetComponent<Placable>().id = id;
+            placedBlocks[Mathf.RoundToInt(x), Mathf.RoundToInt(y)] = Instantiate(block, new Vector3(Mathf.RoundToInt(x), Mathf.RoundToInt(y), -1), new Quaternion());
+            placedBlocks[Mathf.RoundToInt(x), Mathf.RoundToInt(y)].GetComponent<Placable>().spawn();
         }
         
     }
@@ -65,11 +66,11 @@ public class Grid : MonoBehaviour
             Debug.Log("Out of bounds : " + "x = " + Mathf.RoundToInt(x) + ",  y = " + Mathf.RoundToInt(y) + ",  size = " + size);
             return;
         }
-        if (placables[Mathf.RoundToInt(x), Mathf.RoundToInt(y)] is not null)
+        if (placedBlocks[Mathf.RoundToInt(x), Mathf.RoundToInt(y)] is not null)
         {
             Debug.Log("removing " + (int)x + " , " + (int)y);
-            GameObject.Destroy(placables[Mathf.RoundToInt(x), Mathf.RoundToInt(y)].placedObj);
-            placables[Mathf.RoundToInt(x), Mathf.RoundToInt(y)] = null;
+            GameObject.Destroy(placedBlocks[Mathf.RoundToInt(x), Mathf.RoundToInt(y)]);
+            placedBlocks[Mathf.RoundToInt(x), Mathf.RoundToInt(y)] = null;
         }
     }
 }
