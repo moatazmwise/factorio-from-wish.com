@@ -23,15 +23,15 @@ public class Mouse : MonoBehaviour
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         if (Input.GetMouseButtonDown(0))
         {
-            {
-                grid.Place(mousePos.x, mousePos.y, placedBlockId);
-            }
+            grid.Place(mousePos.x, mousePos.y, new Item() { id = placedBlockId });
         }
         if (Input.GetMouseButtonDown(1))
         {
-            {
-                grid.Remove(mousePos.x, mousePos.y);
-            }
+            grid.Remove(mousePos.x, mousePos.y);
+        }
+        if (Input.GetKeyDown("r"))
+        {
+            grid.RotateBlock(mousePos.x, mousePos.y);
         }
 
         Camera.main.transform.position = new Vector3(

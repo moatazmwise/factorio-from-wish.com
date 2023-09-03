@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class Grid : MonoBehaviour
 {
@@ -26,7 +28,7 @@ public class Grid : MonoBehaviour
         }
     }
     
-    public void Place(float x, float y, int id)
+    public void Place(float x, float y, Item item)
     {
         if (Mathf.RoundToInt(x) >= size || Mathf.RoundToInt(x) < 0 || Mathf.RoundToInt(y) >= size || Mathf.RoundToInt(y) < 0)
         {
@@ -36,8 +38,8 @@ public class Grid : MonoBehaviour
         if (placedBlocks[Mathf.RoundToInt(x), Mathf.RoundToInt(y)] is null)
         {
             Debug.Log("placing " + (int)x + " , " + (int)y);
-            block.GetComponent<Placable>().id = id;
             placedBlocks[Mathf.RoundToInt(x), Mathf.RoundToInt(y)] = Instantiate(block, new Vector3(Mathf.RoundToInt(x), Mathf.RoundToInt(y), -1), new Quaternion());
+            placedBlocks[Mathf.RoundToInt(x), Mathf.RoundToInt(y)].GetComponent<Placable>().item = item;
             placedBlocks[Mathf.RoundToInt(x), Mathf.RoundToInt(y)].GetComponent<Placable>().spawn();
         }
         
@@ -71,6 +73,20 @@ public class Grid : MonoBehaviour
             Debug.Log("removing " + (int)x + " , " + (int)y);
             GameObject.Destroy(placedBlocks[Mathf.RoundToInt(x), Mathf.RoundToInt(y)]);
             placedBlocks[Mathf.RoundToInt(x), Mathf.RoundToInt(y)] = null;
+        }
+    }
+
+    public void RotateBlock(float x, float y)
+    {
+        if (placedBlocks[Mathf.RoundToInt(x), Mathf.RoundToInt(y)] is not null)
+        {
+            Debug.Log("rotating " + (int)x + " , " + (int)y);
+            if (placedBlocks[Mathf.RoundToInt(x), Mathf.RoundToInt(y)].GetComponent<Placable>().direction == direction.left)
+            {
+                placedBlocks[Mathf.RoundToInt(x), Mathf.RoundToInt(y)].GetComponent<Placable>().direction = 0;
+            }
+            else placedBlocks[Mathf.RoundToInt(x), Mathf.RoundToInt(y)].GetComponent<Placable>().direction += 1;
+            placedBlocks[Mathf.RoundToInt(x), Mathf.RoundToInt(y)].transform.Rotate(0, 0, -90);
         }
     }
 }

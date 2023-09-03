@@ -8,14 +8,15 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 public enum direction
 {
     up,
+    right,
     down,
-    left,
-    right
+    left
+
 }
 
 public class Placable : MonoBehaviour
 {
-    public int id = 0;
+    public Item item;
     public direction direction = direction.up;
     public GameObject placedObj = null;
     public bool solid = true;
@@ -35,7 +36,7 @@ public class Placable : MonoBehaviour
 
     public void spawn()
     {
-        address += id.ToString() + ".png";
+        address += item.id.ToString() + ".png";
         handle = Addressables.LoadAssetAsync<Sprite>(address);
         handle.Completed += (AsyncOperationHandle<Sprite> operation) =>
         {
