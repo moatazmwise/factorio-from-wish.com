@@ -5,19 +5,10 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
-public enum direction
-{
-    up,
-    right,
-    down,
-    left
-
-}
-
 public class Placable : MonoBehaviour
 {
     public Item item;
-    public direction direction = direction.up;
+    public Vector2 direction = Vector2.up;
     public GameObject placedObj = null;
     public bool solid = true;
     public SpriteRenderer renderer;
@@ -26,12 +17,7 @@ public class Placable : MonoBehaviour
 
     void FixedUpdate()
     {
-        Action();
-    }
-
-    public virtual void Action() 
-    {  
-        
+        item.Action(this);
     }
 
     public void spawn()
@@ -49,6 +35,11 @@ public class Placable : MonoBehaviour
                 Debug.LogError($"Asset for {address} failed to load.");
             }
         };
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        item.PlacableOnTriggerStay(this, collision);
     }
 
     private void OnDestroy()

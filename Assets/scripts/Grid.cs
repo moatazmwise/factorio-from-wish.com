@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEditor.Progress;
@@ -81,11 +82,11 @@ public class Grid : MonoBehaviour
         if (placedBlocks[Mathf.RoundToInt(x), Mathf.RoundToInt(y)] is not null)
         {
             Debug.Log("rotating " + (int)x + " , " + (int)y);
-            if (placedBlocks[Mathf.RoundToInt(x), Mathf.RoundToInt(y)].GetComponent<Placable>().direction == direction.left)
-            {
-                placedBlocks[Mathf.RoundToInt(x), Mathf.RoundToInt(y)].GetComponent<Placable>().direction = 0;
-            }
-            else placedBlocks[Mathf.RoundToInt(x), Mathf.RoundToInt(y)].GetComponent<Placable>().direction += 1;
+            Vector2 dir = placedBlocks[Mathf.RoundToInt(x), Mathf.RoundToInt(y)].GetComponent<Placable>().direction;
+            Vector2 newDir = new Vector2 (
+                Mathf.RoundToInt(dir.x * Mathf.Cos(-Mathf.PI/2) - dir.y * Mathf.Sin(-Mathf.PI / 2)),
+                Mathf.RoundToInt(dir.x * Mathf.Sin(-Mathf.PI / 2) + dir.y * Mathf.Cos(-Mathf.PI / 2)));
+            placedBlocks[Mathf.RoundToInt(x), Mathf.RoundToInt(y)].GetComponent<Placable>().direction = newDir;
             placedBlocks[Mathf.RoundToInt(x), Mathf.RoundToInt(y)].transform.Rotate(0, 0, -90);
         }
     }

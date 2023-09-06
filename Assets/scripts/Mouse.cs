@@ -23,7 +23,7 @@ public class Mouse : MonoBehaviour
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         if (Input.GetMouseButtonDown(0))
         {
-            grid.Place(mousePos.x, mousePos.y, new Item() { id = placedBlockId });
+            grid.Place(mousePos.x, mousePos.y, new ConveyorBelt() { id = placedBlockId });
         }
         if (Input.GetMouseButtonDown(1))
         {

@@ -53,4 +53,28 @@ public class Item
         }
         return new Item() { stack = 0 };
     }
+
+    public virtual void Action(Placable placable)
+    {
+
+    }
+
+    public virtual void PlacableOnTriggerStay(Placable placable, Collider2D collision)
+    {
+
+    }
+}
+
+public class ConveyorBelt : Item
+{
+    public override void Action(Placable placable)
+    {
+        
+    }
+
+    public override void PlacableOnTriggerStay(Placable placable, Collider2D collision)
+    {
+        if (collision.attachedRigidbody)
+            collision.attachedRigidbody.velocity = placable.direction;
+    }
 }
