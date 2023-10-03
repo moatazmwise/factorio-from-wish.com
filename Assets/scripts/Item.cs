@@ -63,6 +63,11 @@ public class Item
     {
 
     }
+
+    public virtual void OnPlace(Placable placable)
+    {
+
+    }
 }
 
 public class ConveyorBelt : Item
@@ -77,4 +82,38 @@ public class ConveyorBelt : Item
         if (collision.attachedRigidbody)
             collision.attachedRigidbody.velocity = placable.direction;
     }
+
+    public override void OnPlace(Placable placable)
+    {
+
+    }
+}
+
+public class Machine : Item
+{
+    float speed = 1;
+    Inventory[] inputInventory;
+    Inventory[] outputInventory;
+
+    public Machine(int inputSize, int outputSize, int inventoryStackSize)
+    {
+        inputInventory = new Inventory[inputSize];
+        outputInventory = new Inventory[outputSize];
+
+        for (int i = 0; i < inputSize; i++)
+        {
+            inputInventory[i] = new Inventory(inventoryStackSize);
+        }
+        for (int i = 0;i < outputSize; i++)
+        {
+            outputInventory[i] = new Inventory(inventoryStackSize);
+        }
+    }
+}
+
+public class Inserter : Machine
+{
+    public Inserter(int inputSize, int outputSize, int inventoryStackSize) : base(inputSize, outputSize, inventoryStackSize)
+    { }
+
 }

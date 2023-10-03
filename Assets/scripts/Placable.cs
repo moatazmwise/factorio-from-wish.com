@@ -35,6 +35,7 @@ public class Placable : MonoBehaviour
                 Debug.LogError($"Asset for {address} failed to load.");
             }
         };
+        item.OnPlace(this);
     }
 
     private void OnTriggerStay2D(Collider2D collision)
