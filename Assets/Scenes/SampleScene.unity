@@ -230,7 +230,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grid: {fileID: 1979432385}
   placedBlockId: 2
-  speed: 0.5
+  speed: 0.1
   camSize: 1
   camSizeMin: 1
   mouseWheelSensitivity: 1

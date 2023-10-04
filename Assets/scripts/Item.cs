@@ -72,6 +72,11 @@ public class Item
 
 public class ConveyorBelt : Item
 {
+    public ConveyorBelt()
+    {
+        id = 2;
+    }
+
     public override void Action(Placable placable)
     {
         
@@ -86,6 +91,21 @@ public class ConveyorBelt : Item
     public override void OnPlace(Placable placable)
     {
 
+    }
+}
+
+public class RightCurvedConveyorBelt : ConveyorBelt
+{
+    public RightCurvedConveyorBelt() { 
+        id = 3;
+    }
+}
+
+public class LeftCurvedConveyorBelt : ConveyorBelt
+{
+    public LeftCurvedConveyorBelt()
+    {
+        id = 4;
     }
 }
 
