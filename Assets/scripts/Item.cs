@@ -54,6 +54,11 @@ public class Item
         return new Item() { stack = 0 };
     }
 
+    public Collider2D GetCollider()
+    {
+        return new BoxCollider2D();
+    }
+
     public virtual void Action(Placable placable)
     {
 
@@ -86,6 +91,13 @@ public class ConveyorBelt : Item
     {
         if (collision.attachedRigidbody)
             collision.attachedRigidbody.velocity = placable.direction;
+    }
+
+    public Collider2D GetCollider()
+    {
+        BoxCollider2D collider = new BoxCollider2D();
+        collider.size = new Vector2(0.5f, 1.5f);
+        return collider;
     }
 
     public override void OnPlace(Placable placable)
