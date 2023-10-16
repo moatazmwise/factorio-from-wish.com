@@ -79,10 +79,7 @@ public class Grid : MonoBehaviour
                     item.id = 2;
                 }
             }
-
-            Collider2D collider = item.GetCollider();
-            Collider2D tmp = block.GetComponent<Placable>().AddComponent<collider.GetType()>();
-            tmp = collider;
+        
             placedBlocks[p.x, p.y] = Instantiate(block, new Vector3(p.x, p.y, -1), new Quaternion());
             placedBlocks[p.x, p.y].GetComponent<Placable>().item = item;
             placedBlocks[p.x, p.y].GetComponent<Placable>().spawn();

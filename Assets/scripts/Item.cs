@@ -54,11 +54,6 @@ public class Item
         return new Item() { stack = 0 };
     }
 
-    public Collider2D GetCollider()
-    {
-        return new BoxCollider2D();
-    }
-
     public virtual void Action(Placable placable)
     {
 
@@ -71,7 +66,8 @@ public class Item
 
     public virtual void OnPlace(Placable placable)
     {
-
+        BoxCollider2D collider = placable.gameObject.AddComponent<BoxCollider2D>();
+        collider.size = new Vector2(1, 1);
     }
 }
 
@@ -93,16 +89,10 @@ public class ConveyorBelt : Item
             collision.attachedRigidbody.velocity = placable.direction;
     }
 
-    public Collider2D GetCollider()
-    {
-        BoxCollider2D collider = new BoxCollider2D();
-        collider.size = new Vector2(0.5f, 1.5f);
-        return collider;
-    }
-
     public override void OnPlace(Placable placable)
     {
-
+        BoxCollider2D collider = placable.gameObject.AddComponent<BoxCollider2D>();
+        collider.size = new Vector2(0.5f, 1.5f);
     }
 }
 
